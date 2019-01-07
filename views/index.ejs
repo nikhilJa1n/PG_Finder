@@ -4,40 +4,34 @@
   <%- include('layout'); -%>
   <body>
     <div class="container" id="abc">
-      <form action="/users/search" method="post" class="form-horizontal">
+      <form action="/users/index" method="post" class="form-horizontal">
         <div class="form-group">
-            <label class="col-md-4 control-label" for="Name (Full name)">Enter Location</label>  
+            <label class="col-md-4 control-label">Enter Location:</label>  
             <div class="col-md-4">
-              <div class="input-group">
                  <input id="location" name="location" type="text" placeholder="Enter Location Name ,City Name" class="form-control input-md">
-              </div>
             </div>
         </div>
-          <div class="form-group">
-              <label class="col-md-4 control-label" for="Gender">Rooms For:</label>
+        <div class="form-group">
+              <label class="col-md-4 control-label">Rooms For:</label>
               <div class="col-md-4"> 
-                <label class="radio-inline" for="Gender-0">
-                  <input type="radio" name="gender" id="Gender-0" value="1">
-                  Boys
+                <label class="radio-inline" for="gender0">
+                  <input type="radio" name="gender" id="gender0" value="boy">Boys
                 </label> 
-                <label class="radio-inline" for="Gender-1">
-                  <input type="radio" name="gender" id="Gender-1" value="2">
-                  Girls
+                <label class="radio-inline" for="gender1">
+                  <input type="radio" name="gender" id="gender1" value="girl">Girls
                 </label>
               </div>
-            </div>
+        </div>
             
             <!-- Multiple Radios (inline) -->
             <div class="form-group">
               <label class="col-md-4 control-label" for="radios">Rooms Type:</label>
               <div class="col-md-4"> 
                 <label class="radio-inline" for="radios-0">
-                  <input type="radio" name="type" id="radios-0" value="1" checked="checked">
-                  Single
+                  <input type="radio" name="rtype" id="radios-0" value="single" checked="checked">Single
                 </label> 
                 <label class="radio-inline" for="radios-1">
-                  <input type="radio" name="type" id="radios-1" value="2">
-                  Shared
+                  <input type="radio" name="rtype" id="radios-1" value="shared">Shared
                 </label>
               </div>
             </div>
