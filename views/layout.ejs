@@ -30,7 +30,9 @@
           <a class="active" href="/">Home</a>
           <% if(user) { %>
           <a href="/users/logout" style="float:right;">Logout</a>
-          <a href="/users/profile" style="float: right;">Profile</a>
+          <a href="/users/profile" style="float: right;">
+            <%= user.username %> profile
+          </a>
           <a href="/" style="float: right;">Dashboard</a>
           <% } else { %>
           <a href="/users/login" style="float: right;">Login</a>

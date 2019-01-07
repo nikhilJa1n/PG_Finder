@@ -6,6 +6,15 @@
     <%- include('layout'); -%>
 </head>
 <body>
+<% if(error_msg!=""){ %>
+    <p class="alert alert-danger">
+        <%= error_msg %>
+    </p>
+<% }else if(success_msg!="") { %>
+    <p class="alert alert-success">
+        <%= success_msg %>
+    </p>
+<% } %>
 <div class="container">
 <div class="col-sm-6 col-sm-offset-3">
 
@@ -28,7 +37,7 @@
 
     <hr>
 
-    <p>Need an account? <a href="/signup">Signup</a></p>
+    <p>Need an account? <a href="/users/signup">Signup</a></p>
     <p>Or go <a href="/">home</a>.</p>
 
 </div>

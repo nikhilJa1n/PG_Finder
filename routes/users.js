@@ -3,9 +3,11 @@ var router = express.Router();
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var User = require('../models/user');
+var PgDetail = require('../models/pgdetails');
 
 //var Pg = require('../models/pg');
 /* GET users listing. */
+var usernamezz;
 
 router.get('/signup', function(req, res, next) {
   res.render('signup');
@@ -16,8 +18,31 @@ router.get('/login', function(req, res, next) {
 });
 
 router.get('/profile', function(req,res,next){
-  res.render('profile');
+  PgDetail.getPgByUsername(usernamezz,function(err,userr){
+    if(userr){
+    console.log(userr);
+    res.render('profile',{
+      username:userr.username,
+      pgname:userr.pgname,
+      numberofrooms:userr.numberofrooms,
+      state:userr.state,
+      city:userr.city,
+      pgphoneno:userr.pgphoneno,
+      roomtype:userr.roomtype,
+      roomfor:userr.roomfor,
+      roomprice:userr.roomprice,
+      amenities:userr.amenities  
+    });
+  }
+  else{
+    res.redirect('/users/provider');
+  }
+  })
+  
 })
+router.get('/provider', function(req, res, next) {
+  res.render('provider');
+});
 
 router.post("/signup",function(req,res){
     var username=req.body.username;
@@ -44,7 +69,15 @@ router.post("/signup",function(req,res){
         });
     }
     else{
-        var newUser =new User({
+      User.getUserByUsername(username,function(err,user){
+        if(user){
+          req.flash('error_msg','user already registred');
+          res.redirect('/users/signup');
+        }
+      
+
+else{
+       var newUser =new User({
             username:username,
             fname:fname,
             lname:lname,
@@ -60,6 +93,9 @@ router.post("/signup",function(req,res){
         req.flash('success_msg', 'You are registered');
         res.redirect('/users/login');
       }
+      })
+
+      }
 });
 passport.use(new LocalStrategy(
     function (username, password, done) {
@@ -71,7 +107,9 @@ passport.use(new LocalStrategy(
         User.comparePassword(password, user.password, function(err, isMatch){
           if(err) throw err;
           if(isMatch){
+            usernamezz=username;
             return done(null,user);
+
           }
           else{
             return done(null,false,{message: 'Invalid Password'});
@@ -89,17 +127,81 @@ passport.use(new LocalStrategy(
       done(err, user);
     });
   });
-  router.post('/login', passport.authenticate('local', {successRedirect:'/users/index', failureRedirect:'/users/login',failureFlash: true}), function(req,res){
-  res.render('/users/index');
+  router.post('/login', passport.authenticate('local', {successRedirect:'/users/index', failureRedirect:'/users/login',failureFlash: 'invadid username and password'}), function(req,res){
+    //req.flash('error_msg','wrong');
+  //res.render('/users/cust');
   });
   
   router.get('/index', ensureAuthenticated, function(req, res) {
     if(req.user.selftype==1){
-      res.render('provider');
+      PgDetail.getPgByUsername(usernamezz,function(err,userr){
+        if(userr){
+          res.redirect('/');    
+        }
+        else{
+          res.redirect('/users/provider');
+        }
+      })
+      
     } else{
-      res.render('gainer');
+      res.redirect('/');
     }
   });
+
+//////////////////////////////////////////////////////////
+router.post("/provider",function(req,res){
+  var pgname=req.body.pgname;
+  var numberofrooms=req.body.numberofrooms;
+  var state=req.body.state;
+  var city=req.body.city;
+  var pgphoneno=req.body.pgphoneno;
+  var roomtype=req.body.roomtype;
+  var roomfor=req.body.roomfor;
+  var roomprice = req.body.roomprice;
+  var amenities = req.body.amenities;
+  var username=req.body.username;
+  
+  req.checkBody('pgname','pgname is required').notEmpty();
+  req.checkBody('numberofrooms','number of rooms is required').notEmpty();
+  req.checkBody('state','state is required').notEmpty();
+  req.checkBody('city','city is required').notEmpty();
+  req.checkBody('pgphoneno','mobile number is not valid').isInt();
+  req.checkBody('pgphoneno','mobile number is required').notEmpty();
+  req.checkBody('roomprice','roomprice is required').notEmpty();
+  req.checkBody('amenities','password is required').notEmpty();
+  
+  var errors = req.validationErrors();
+  if(errors){
+      res.render('provider',{
+          errors:errors
+      });
+  }
+  else{
+      var newNewDetail =new PgDetail({
+        username:username,
+          pgname:pgname,
+          numberofrooms:numberofrooms,
+          state:state,
+          city:city,
+          pgphoneno:pgphoneno,
+          roomtype:roomtype,
+          roomfor:roomfor,
+          roomprice:roomprice,
+          amenities:amenities
+      })
+      PgDetail.createPg(newNewDetail, function(err,pgdetails){
+        if(err) throw err;
+        console.log(pgdetails);
+    });
+      res.redirect('/');
+    }
+});
+
+
+/////////////////////////////////////////////////////
+
+
+
   
   function ensureAuthenticated(req, res, next) {
     if(req.isAuthenticated()) {
