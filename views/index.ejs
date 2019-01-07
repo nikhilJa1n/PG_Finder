@@ -3,8 +3,15 @@
   <%- include('header'); -%>
   <%- include('layout'); -%>
   <body>
+      <% if(typeof errors == 'object' && errors){ %>
+        <% errors.forEach(function(errors){ %>
+            <p class="alert alert-danger">
+                <%= errors.msg %>
+            </p>
+        <% }); %>
+    <% } %>
     <div class="container" id="abc">
-      <form action="/users/index" method="post" class="form-horizontal">
+      <form action="/" method="post" class="form-horizontal">
         <div class="form-group">
             <label class="col-md-4 control-label">Enter Location:</label>  
             <div class="col-md-4">
