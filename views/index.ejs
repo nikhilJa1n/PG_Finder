@@ -4,7 +4,7 @@
   <%- include('layout'); -%>
   <body>
     <div class="container" id="abc">
-      <form action="/search" method="post" class="form-horizontal">
+      <form action="/users/search" method="post" class="form-horizontal">
         <div class="form-group">
             <label class="col-md-4 control-label" for="Name (Full name)">Enter Location</label>  
             <div class="col-md-4">
@@ -17,11 +17,11 @@
               <label class="col-md-4 control-label" for="Gender">Rooms For:</label>
               <div class="col-md-4"> 
                 <label class="radio-inline" for="Gender-0">
-                  <input type="radio" name="Gender" id="Gender-0" value="1">
+                  <input type="radio" name="gender" id="Gender-0" value="1">
                   Boys
                 </label> 
                 <label class="radio-inline" for="Gender-1">
-                  <input type="radio" name="Gender" id="Gender-1" value="2">
+                  <input type="radio" name="gender" id="Gender-1" value="2">
                   Girls
                 </label>
               </div>
