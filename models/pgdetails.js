@@ -53,3 +53,7 @@ module.exports.getPgByUsername = function(username,callback){
 	var query = {username: username};
 	PgDetail.findOne(query, callback);
 }
+module.exports.getPgByLocation = function(city,roomfor,roomtype,callback){
+	var query = {city: city,roomfor:roomfor,roomtype:roomtype};
+	PgDetail.find(query, callback);
+}
