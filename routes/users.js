@@ -24,6 +24,7 @@ router.get('/profile', function(req,res,next){
     res.render('profile',{
       username:userr.username,
       pgname:userr.pgname,
+      address:userr.address,
       numberofrooms:userr.numberofrooms,
       state:userr.state,
       city:userr.city,
@@ -151,6 +152,7 @@ passport.use(new LocalStrategy(
 //////////////////////////////////////////////////////////
 router.post("/provider",function(req,res){
   var pgname=req.body.pgname;
+  var address=req.body.address;
   var numberofrooms=req.body.numberofrooms;
   var state=req.body.state;
   var city=req.body.city;
@@ -162,6 +164,7 @@ router.post("/provider",function(req,res){
   var username=req.body.username;
   
   req.checkBody('pgname','pgname is required').notEmpty();
+  req.checkBody('address','address is required').notEmpty();
   req.checkBody('numberofrooms','number of rooms is required').notEmpty();
   req.checkBody('state','state is required').notEmpty();
   req.checkBody('city','city is required').notEmpty();
@@ -180,6 +183,7 @@ router.post("/provider",function(req,res){
       var newNewDetail =new PgDetail({
         username:username,
           pgname:pgname,
+          address:address,
           numberofrooms:numberofrooms,
           state:state,
           city:city,

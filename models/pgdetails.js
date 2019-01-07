@@ -8,6 +8,10 @@ const UserSchema=mongoose.Schema({
         type:String,
         index:true
     },
+    address:{
+        type:String,
+        index:true
+    },
     numberofrooms:{
         type:Number,
         required:true
