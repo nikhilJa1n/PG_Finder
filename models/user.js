@@ -13,7 +13,7 @@ const UserSchema=mongoose.Schema({
         type:String,
         required:true
     },
-    mobile:{
+    phone:{
         type:Number,
         required:true
     },
@@ -27,6 +27,9 @@ const UserSchema=mongoose.Schema({
     },
     selftype:{
         type:Number
+    },
+    gender:{
+        type:String,
     }
 })
 var User = module.exports = mongoose.model('User', UserSchema);

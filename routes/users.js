@@ -5,60 +5,48 @@ var LocalStrategy = require('passport-local').Strategy;
 var User = require('../models/user');
 var PgDetail = require('../models/pgdetails');
 
-//var Pg = require('../models/pg');
-/* GET users listing. */
-var usernamezz;
 
+//showing signup page
 router.get('/signup', function(req, res, next) {
   res.render('signup');
 });
 
+//showing login page
 router.get('/login', function(req, res, next) {
   res.render('login');
 });
 
+//showing profile
 router.get('/profile', function(req,res,next){
-  PgDetail.getPgByUsername(usernamezz,function(err,userr){
-    if(userr){
-    console.log(userr);
-    res.render('profile',{
-      username:userr.username,
-      pgname:userr.pgname,
-      address:userr.address,
-      numberofrooms:userr.numberofrooms,
-      state:userr.state,
-      city:userr.city,
-      pgphoneno:userr.pgphoneno,
-      roomtype:userr.roomtype,
-      roomfor:userr.roomfor,
-      roomprice:userr.roomprice,
-      amenities:userr.amenities  
-    });
-  }
-  else{
-    res.redirect('/users/provider');
-  }
-  })
-  
+    res.render('profile');
 })
+router.get('/editprofile',function(req,res){
+  res.render('editprofile');
+})
+
+
+//showing provider
 router.get('/provider', function(req, res, next) {
   res.render('provider');
 });
 
+
+//geting data from signup
 router.post("/signup",function(req,res){
     var username=req.body.username;
     var fname=req.body.fname;
     var lname=req.body.lname;
-    var mobile=req.body.mobile;
+    var phone=req.body.phone;
     var email=req.body.email;
     var password=req.body.password;
-    var selftype = req.body.optradio;
+    var selftype = req.body.type;
+    var gender=req.body.gender;
     
     req.checkBody('username','username is required').notEmpty();
     req.checkBody('fname','First name is required').notEmpty();
     req.checkBody('lname','last name is required').notEmpty();
-    req.checkBody('mobile','mobile number is required').notEmpty();
-    req.checkBody('mobile','mobile number is not valid').isInt();
+    req.checkBody('phone','mobile number is required').notEmpty();
+    req.checkBody('phone','mobile number is not valid').isInt();
     req.checkBody('email','Email is required').notEmpty();
     req.checkBody('email','Email is not valid').isEmail();
     req.checkBody('password','password is required').notEmpty();
@@ -75,17 +63,16 @@ router.post("/signup",function(req,res){
           req.flash('error_msg','user already registred');
           res.redirect('/users/signup');
         }
-      
-
-else{
-       var newUser =new User({
+        else{
+          var newUser =new User({
             username:username,
             fname:fname,
             lname:lname,
-            mobile:mobile,
+            phone:phone,
             email:email,
             password:password,
-            selftype:selftype
+            selftype:selftype,
+            gender:gender
         })
   	    User.createUser(newUser, function(err,user){
             if(err) throw err;
@@ -94,62 +81,65 @@ else{
         req.flash('success_msg', 'You are registered');
         res.redirect('/users/login');
       }
-      })
-
-      }
+      })}
 });
+
+
+//passport
+//match username and password
 passport.use(new LocalStrategy(
     function (username, password, done) {
       User.getUserByUsername(username, function(err, user){
         if(err) throw err;
         if(!user){
-          return done(null,false, {message:' Unknown User'});
+          return done(null,false);
         }
         User.comparePassword(password, user.password, function(err, isMatch){
           if(err) throw err;
           if(isMatch){
-            usernamezz=username;
             return done(null,user);
-
           }
           else{
-            return done(null,false,{message: 'Invalid Password'});
+            return done(null,false);
           }
         });
       });
       }));
   
+
+  //maintaing session for passport
   passport.serializeUser(function(user, done){
     done(null,user.id);
   });
-  
   passport.deserializeUser(function(id, done){
     User.getUserById(id, function(err, user){
       done(err, user);
     });
   });
-  router.post('/login', passport.authenticate('local', {successRedirect:'/users/index', failureRedirect:'/users/login',failureFlash: 'invadid username and password'}), function(req,res){
-    //req.flash('error_msg','wrong');
-  //res.render('/users/cust');
+
+  //auth  req when fail or pass
+  router.post('/login', passport.authenticate('local', {successRedirect:'/users/index', failureRedirect:'/users/login'}), function(req,res){
   });
   
+  //routes protection
   router.get('/index', ensureAuthenticated, function(req, res) {
     if(req.user.selftype==1){
-      PgDetail.getPgByUsername(usernamezz,function(err,userr){
+      PgDetail.getPgByUsername(req.user.username,function(err,userr){
+        console.log(req.user);
+        
         if(userr){
           res.redirect('/');    
         }
         else{
           res.redirect('/users/provider');
         }
-      })
-      
+      })  
     } else{
       res.redirect('/');
     }
   });
 
-//////////////////////////////////////////////////////////
+//getting data from provider
 router.post("/provider",function(req,res){
   var pgname=req.body.pgname;
   var address=req.body.address;
@@ -161,7 +151,8 @@ router.post("/provider",function(req,res){
   var roomfor=req.body.roomfor;
   var roomprice = req.body.roomprice;
   var amenities = req.body.amenities;
-  var username=req.body.username;
+  var username=req.user.username;
+  console.log(req.user.username);
   
   req.checkBody('pgname','pgname is required').notEmpty();
   req.checkBody('address','address is required').notEmpty();
@@ -202,20 +193,18 @@ router.post("/provider",function(req,res){
 });
 
 
-/////////////////////////////////////////////////////
-
-
-
-  
+ /////////////////////////////////////////////////// 
   function ensureAuthenticated(req, res, next) {
     if(req.isAuthenticated()) {
       return next();
     } else {
-      req.flash('error_msg','Please login first');
+      req.session.error='Please login first';
+      console.log(error);
       res.redirect('/users/login');
     }
   }
-  
+  ////////////////////////////////////////////////
+  //logout functionality
   router.get('/logout',function(req,res){
     req.logout();
     req.flash('success_msg','You are  logged out');

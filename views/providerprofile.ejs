@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head>
+    <title>profile</title>
+    <%- include('header'); -%>
+    <%- include('layout'); -%>
+    <style>
+    li{
+        font-size: 26px;
+    }
+    </style>
+</head>
+<body>
+    <ul type='none'>
+        <li>Pgname:<%- pgname %></li>
+        <li>Address:<%- address %></li>
+        <li>Number Of Rooms:<%- numberofrooms %></li>
+        <li>State:<%- state %></li>
+        <li>City:<%- city %></li>
+        <li>Mobileno:<%- pgphoneno %></li>
+        <li>Roomtype:<%- roomtype %></li>
+        <li>Roomprice:<%- roomprice %></li>
+        <li>Amenities:</li>
+        <ul type='1'>
+        <% for(var i=0 ; i<amenities.length ;i++) { %>
+        <li><%- amenities[i] %></li>
+        <% } %>
+    </ul>
+    </ul>
+</body>

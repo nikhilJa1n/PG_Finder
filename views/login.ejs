@@ -6,15 +6,12 @@
     <%- include('layout'); -%>
 </head>
 <body>
-<% if(error_msg!=""){ %>
+<% if(typeof error != "undefined" ? error : ""){ %>
     <p class="alert alert-danger">
-        <%= error_msg %>
-    </p>
-<% }else if(success_msg!="") { %>
-    <p class="alert alert-success">
-        <%= success_msg %>
+        <%= error %>
     </p>
 <% } %>
+
 <div class="container">
 <div class="col-sm-6 col-sm-offset-3">
 

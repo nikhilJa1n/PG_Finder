@@ -1,41 +1,43 @@
 <head>
-    <style>
-.topnav {
-  overflow: hidden;
-  background-color: #333;
-  margin-bottom:70px;
-}
-
-.topnav a {
-  float: left;
-  display: block;
-  color: #f2f2f2;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 20px;
-}
-
-.topnav a:hover {
-  background-color: #ddd;
-  color: black;
-}
-.topnav a.active {
-  background-color: #4CAF50;
-  color: white;
-}
-</style>
+<%- include('header'); -%> 
   </head>
-<div class="topnav">
-          <a class="active" href="/">Home</a>
-          <% if(user) { %>
-          <a href="/users/logout" style="float:right;">Logout</a>
-          <a href="/users/profile" style="float: right;">
-            <%= user.username %> profile
-          </a>
-          <a href="/" style="float: right;">Dashboard</a>
-          <% } else { %>
-          <a href="/users/login" style="float: right;">Login</a>
-          <a href="/users/signup" style="float: right;">Register</a>
-          <% } %>
-</div>
+  <div class="container-fullwidth">
+    <nav class="navbar fixed-top navbar-inverse">
+      
+        <a class="navbar-brand" href="/">Home</a>
+          
+      <div class="collapse navbar-collapse js-navbar-collapse">
+            
+          <ul class="nav navbar-nav navbar-right">
+            <% if(user) { %>
+                <li><a href="/">Dashboard</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Profile <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                      <li><a href="/users/profile"><%=user.username%> Profile</a></li>
+                      <li><a href="/users/editprofile">Edit Profile</a></li>
+                    </ul>
+                </li>
+                <li><a href="/users/logout" style="float:right;">Logout</a></li>
+            <% }else{ %>
+                <li><a href="/users/login">Login</a></li>
+                <li><a href="/users/signup">Register</a></li>
+                <% } %>
+        </ul>
+      </div>
+    </nav>
+  </div>
+<script>
+$(document).ready(function(){
+    $(".dropdown").hover(            
+        function() {
+            $('.dropdown-menu', this).not('.in .dropdown-menu').stop(true,true).slideDown("400");
+            $(this).toggleClass('open');        
+        },
+        function() {
+            $('.dropdown-menu', this).not('.in .dropdown-menu').stop(true,true).slideUp("400");
+            $(this).toggleClass('open');       
+        }
+    );
+});
+</script>  
