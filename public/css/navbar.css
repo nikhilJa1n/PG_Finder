@@ -1,0 +1,53 @@
+.bg-company-black {
+    background-color: black;
+}
+.navbar-brand {
+	color: white;
+}
+.navbar-brand:hover { 
+    background: black;
+    color: white;
+}
+.navbar-nav > li{
+  padding-left:30px;
+  padding-right:30px;
+}
+li:last-child {
+	padding-right:100px;
+}
+.navbar-nav > li > a, .navbar-nav >li >p{
+    line-height: 50px;
+    padding-top: 20px;
+    padding-bottom: 10px;
+    font-size: 20px;
+}
+#link1 {
+	color: #00FF66;
+}
+#link2 {
+	color: #00FFBF;
+}
+#link3 {
+	color: #00FFFF;
+}
+#link4 {
+	color: #14D6FF;
+}
+#link5 {
+	color: #00ff66;
+}
+.nav-bar { 
+	height: 20px;
+	background-color: black;
+	 
+}
+#c3 {
+	width: 100%;
+	/* height: 500px; */
+	height: auto;
+	background-color: red;
+}
+.navbar {
+  border-bottom: 5px solid #00FF99;
+  width: 100%;
+}

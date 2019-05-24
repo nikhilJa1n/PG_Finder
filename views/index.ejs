@@ -1,56 +1,57 @@
+<!DOCTYPE html>
 <html>
-  <title>Pg;Finder</title>
-  <%- include('header'); -%>
-  <%- include('layout'); -%>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Home</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/navbar.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+  </head>
   <body>
-      <% if(typeof errors == 'object' && errors){ %>
-        <% errors.forEach(function(errors){ %>
-            <p class="alert alert-danger">
-                <%= errors.msg %>
-            </p>
-        <% }); %>
-    <% } %>
-    <div class="container" id="abc">
-      <form action="/" method="post" class="form-horizontal">
-        <div class="form-group">
-            <label class="col-md-4 control-label">Enter Location:</label>  
-            <div class="col-md-4">
-                 <input id="location" name="location" type="text" placeholder="Enter Location Name ,City Name" class="form-control input-md">
-            </div>
+      <nav class="navbar fixed-top navbar-expand-md bg-company-black">
+        <h1><a class="navbar-brand" href="/">PG Finder</a></h1>
+        <div class="collapse navbar-collapse navbar-element">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" id="link1" href="/">Find a Pg</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="/postroom" id="link2">Post a Pg</a>
+            </li>
+            <% if (user) { %>
+            <li class="nav-item active">
+              <a class="nav-link" href="/signout" id="link3">Sign out</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="/profile" id="link4">Profile</a>
+            </li>
+            <% } else { %>
+            <li class="nav-item active">
+              <a class="nav-link" id="link3" href="/signin">Sign In</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" id="link4" href="/signup">Sign Up</a>
+            </li>
+            <% } %>
+          </ul>
         </div>
-        <div class="form-group">
-              <label class="col-md-4 control-label">Rooms For:</label>
-              <div class="col-md-4"> 
-                <label class="radio-inline" for="gender0">
-                  <input type="radio" name="gender" id="gender0" value="boy">Boys
-                </label> 
-                <label class="radio-inline" for="gender1">
-                  <input type="radio" name="gender" id="gender1" value="girl">Girls
-                </label>
-              </div>
-        </div>
-            
-            <!-- Multiple Radios (inline) -->
-            <div class="form-group">
-              <label class="col-md-4 control-label" for="radios">Rooms Type:</label>
-              <div class="col-md-4"> 
-                <label class="radio-inline" for="radios-0">
-                  <input type="radio" name="rtype" id="radios-0" value="single" checked="checked">Single
-                </label> 
-                <label class="radio-inline" for="radios-1">
-                  <input type="radio" name="rtype" id="radios-1" value="shared">Shared
-                </label>
-              </div>
-            </div>
-            <div class="form-group">
-                <label class="col-md-4 control-label" ></label>  
-                <div class="col-md-4">
-                <button type="submit" class="btn btn-info">Find Now</button>
-                </div>
-              </div>
-                
-
-
+      </nav>
+    <div class="jumbotron text-center" id="jumbo1">
+      <h1 class="jumbotron-heading" style="margin-top:100px">Find Roommates Who Get You</h1>
+      <p>Search thousands of listings across town</p>
+      <p>A Chitkara university Project</p>
+      <p>By NikhilJa1n</p>
+      <br><br><br>
+      <form class="search-container" action="/findroom" method="POST">
+        <input type="text" id="search-bar" name="location" placeholder="Enter a street, area or city">
+        <img class="search-icon" src="/images/search-icon.png">
+        <input type="submit" name="search" class="search" value="Search">
       </form>
     </div>
   </body>

@@ -1,0 +1,180 @@
+<html>
+        <head>
+                <title>Profile</title>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"> </script>
+    <link rel="stylesheet" type="text/css" href="/css/navbar.css">
+    <style type="text/css">
+                  body {
+                  background-color: white;
+                  }
+                </style>
+              </head>
+              <nav class="navbar fixed-top navbar-expand-md bg-company-black">
+                    <h1><a class="navbar-brand" href="/">Room Finder</a></h1>
+                    <div class="collapse navbar-collapse navbar-element">
+                      <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active">
+                          <a class="nav-link" id="link1" href="/">Find a Room</a>
+                        </li>
+                        <li class="nav-item active">
+                          <a class="nav-link" href="/postroom" id="link2">Post a Room</a>
+                        </li>
+                        <% if (user) { %>
+                        <li class="nav-item active">
+                          <a class="nav-link" href="/signout" id="link3">Sign out</a>
+                        </li>
+                        <li class="nav-item active">
+                          <a class="nav-link" href="/profile" id="link4">Profile</a>
+                        </li>
+                        <% } else { %>
+                        <li class="nav-item active">
+                          <a class="nav-link" id="link3" href="#signin" data-toggle="modal" data-target="#myModal">Sign In</a>
+                        </li>
+                        <li class="nav-item active">
+                          <a class="nav-link" id="link4" href="/signup">Sign Up</a>
+                        </li>
+                        <% } %>
+                      </ul>
+                    </div>
+                  </nav>
+        <div class="container" style="margin-top:120px;">
+                <div class="col-sm-6 col-sm-offset-3">
+                
+                    <h1> Enter Your Pg Details</h1>
+                
+                  
+                    <!-- LOGIN FORM -->
+                    <form action="/postroom" method="post">
+                        <div class="form-group">
+                            <label>Enter Pg Name:</label>
+                            <input type="text" class="form-control" name="pgname">
+                        </div>
+                        <div class="form-group">
+                                <label>Rooms For:&nbsp;&nbsp;&nbsp;</label>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="roomfor" id="boy" value="boy" checked>
+                                    <label class="form-check-label" for="boy">Boy</label>
+                                  </div>
+                                  <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="roomfor" id="girl" value="girl">
+                                    <label class="form-check-label" for="shared">Girl</label>
+                                  </div>
+                            </div>
+                        <div class="form-group">
+                            <label>Door No.:</label>
+                            <input type="text" class="form-control" name="doorno">
+                        </div>
+                        <div class="form-group">
+                            <label>Street Address:</label>
+                            <input type="text" class="form-control" name="saddress">
+                        </div>
+                        <div class="form-group">
+                            <label>City:</label>
+                            <input type="text" class="form-control" name="city">
+                        </div><div class="form-group">
+                            <label>State:</label>
+                            <input type="text" class="form-control" name="state">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Zipcode:</label>
+                            <input type="text" class="form-control" name="zipcode">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Pg Phone No:</label>
+                            <input type="text" class="form-control" name="pgphoneno">
+                        </div>
+                        <div class="form-group">
+                            <label>Type:&nbsp;&nbsp;&nbsp;</label>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="roomtype" id="single" value="single" checked>
+                                <label class="form-check-label" for="single">Single</label>
+                              </div>
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="roomtype" id="shared" value="shared">
+                                <label class="form-check-label" for="shared">Shared</label>
+                              </div>
+                        </div>
+                        
+
+
+                        <div class="form-group">
+                            <label>Monthly Rent:</label>
+                            <input type="text" class="form-control" name="rent">
+                        </div>
+                        <div class="form-group">
+                                <label>Deposit:</label>
+                                <input type="text" class="form-control" name="deposit">
+                            </div>
+                            
+                        <div class="form-group">
+                            <label>Amenities:</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="amenities" value="breakfast" id="breakfast">
+                                <label class="form-check-label" for="breakfast">Breakfast</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="amenities" value="lunch" id="lunch">
+                                <label class="form-check-label" for="lunch">Lunch</label>
+                              </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="amenities" value="dinner" id="dinner">
+                                <label class="form-check-label" for="dinner">Dinner</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="amenities" value="housekeeping" id="housekeeping">
+                                <label class="form-check-label" for="housekeeping">Housekeeping</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="amenities" value="wifi" id="wifi">
+                                <label class="form-check-label" for="wifi">Wifi</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="amenities" value="parking" id="parking">
+                                <label class="form-check-label" for="parking">Parking</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="amenities" value="hotwater" id="hotwater">
+                                <label class="form-check-label" for="hotwater">Hot Water</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="amenities" value="laundry" id="laundry">
+                                <label class="form-check-label" for="laundry">Laundry</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="amenities" value="tv" id="tv">
+                                <label class="form-check-label" for="tv">TV</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="amenities" value="ac" id="ac">
+                                <label class="form-check-label" for="ac">AC</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="amenities" value="gym" id="gym">
+                                <label class="form-check-label" for="gym">Gym</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="amenities" value="miniralwater" id="miniralwater">
+                                <label class="form-check-label" for="miniralwater">Miniral Water</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="amenities" value="security" id="security">
+                                <label class="form-check-label" for="security">Security</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Upload Images:</label>
+                            <div class="btn btn-default">
+                                <input id="uploadimages" name="uploadimages" type="file" class="file" multiple data-show-upload="true" data-show-caption="true">
+                            </div>
+                        </div>
+    
+    
+                        <button type="submit" class="btn btn-warning btn-lg">Submit</button>
+                    </form>           
+                </div>
+                </div>
+</html>

@@ -1,0 +1,102 @@
+<html>
+    <head>
+        <title>Profile</title>
+    <script src="/js/datepicker.min.js"></script>
+        <script src="/js/datepicker.en.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"> </script>
+    <link rel="stylesheet" type="text/css" href="/css/navbar.css">
+        <style type="text/css">
+          body {
+          background-color: white;
+          }
+        </style>
+      </head>
+
+    <body>
+            <nav class="navbar fixed-top navbar-expand-md bg-company-black">
+                    <h1><a class="navbar-brand" href="/">PG Finder</a></h1>
+                    <div class="collapse navbar-collapse navbar-element">
+                      <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active">
+                          <a class="nav-link" id="link1" href="/">Find a Room</a>
+                        </li>
+                        <li class="nav-item active">
+                          <a class="nav-link" href="/postroom" id="link2">Post a Room</a>
+                        </li>
+                        <% if (user) { %>
+                        <li class="nav-item active">
+                          <a class="nav-link" href="/signout" id="link3">Sign out</a>
+                        </li>
+                        <li class="nav-item active">
+                          <a class="nav-link" href="/profile" id="link4">Profile</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/updateprofile" id="link5">Edit Profile</a>
+                        </li>
+                        <% } else { %>
+                        <li class="nav-item active">
+                          <a class="nav-link" id="link3" href="#signin" data-toggle="modal" data-target="#myModal">Sign In</a>
+                        </li>
+                        <li class="nav-item active">
+                          <a class="nav-link" id="link4" href="/signup">Sign Up</a>
+                        </li>
+                        <% } %>
+                      </ul>
+                    </div>
+                  </nav>
+                  <br><br><br>
+        
+    <div class='container'>
+            <div style="margin-top:50px;">
+            <div class="col-12">
+                 <div class="card allSidesSoft">
+                     <div class="card-body">
+<form action="/users/editprofile">
+    <div class="panel-group">
+        <div class="panel panel-default editUserPanel">
+            <div class="panel-heading">Personal Info</div>
+            <div class="panel-body">
+                
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" value="<%=user.name%>" class="form-control" autocomplete="off" required>
+                </div>
+        
+                <div class="form-group">
+                    <label>Gender</label>
+                    <select name="gender" class="form-control" >
+                        <optgroup label="Select Gender">
+                            <option><%=user.gender%></option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </optgroup>
+                    </select>
+                </div>
+            
+        <div class="form-group">
+                    <label>Phone No</label>
+                    <input type="text" value="<%=user.num %>" class="form-control" name="phone" required>
+        </div>
+        <div class="form-group">
+                    <label >DOB</label>
+                    <input type="text" value="<%=user.dob %>" class="form-control" name="dob">
+                </div>
+        </div>
+    </div>
+        <br>
+        <div class="form-group">
+            <a href="/profile" class="btn btn-danger pull-right btnEditForm" style="margin:1px">Cancel</a>
+            <button type="submit" class="btn btn-primary pull-left btnEditForm" style="margin:1px" value="Update" >Update</button>
+   </div>
+    </div>
+</form>    
+</div>
+</div>
+</div>
+</div>
+</div>
+<br>
+<br>
+    </body>
+</html>

@@ -1,0 +1,130 @@
+<html>
+    <head>
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="/css/socialbtn.css">
+        <link rel="stylesheet" type="text/css" href="/css/signup.css">
+        <link rel="stylesheet" type="text/css" href="/css/navbar.css">
+        <link href="/css/datepicker.min.css" rel="stylesheet" type="text/css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="/js/datepicker.min.js"></script>
+        <script src="/js/datepicker.en.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+        <style>
+          body {
+  padding-top: 20px;
+}
+
+.card-deck {
+  margin: 0 -15px;
+  justify-content: space-between;
+}
+
+.card-deck .card {
+  margin: 0 0 1rem;
+}
+
+@media (min-width: 276px) and (max-width: 767.98px) {
+  .card-deck .card {
+    -ms-flex: 0 0 48.7%;
+    flex: 0 0 48.7%;
+  }
+}
+
+@media (min-width: 468px) and (max-width: 291.98px) {
+  .card-deck .card {
+    -ms-flex: 0 0 32%;
+    flex: 0 0 32%;
+  }
+}
+
+@media (min-width: 992px)
+{
+  .card-deck .card {
+    -ms-flex: 0 0 14%;
+    flex: 0 0 24%;
+  }
+}
+
+        </style>
+    </head>
+    <body>
+
+            <nav class="navbar fixed-top navbar-expand-md bg-company-black">
+                    <h1><a class="navbar-brand" href="/">PG Finder</a></h1>
+                    <div class="collapse navbar-collapse navbar-element">
+                      <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active">
+                          <a class="nav-link" id="link1" href="/">Find a Room</a>
+                        </li>
+                        <li class="nav-item active">
+                          <a class="nav-link" href="/postroom" id="link2">Post a Room</a>
+                        </li>
+                        <% if (user) { %>
+                        <li class="nav-item active">
+                          <a class="nav-link" href="/signout" id="link3">Sign out</a>
+                        </li>
+                        <li class="nav-item active">
+                          <a class="nav-link" href="/profile" id="link4">Profile</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/updateprofile" id="link5">Edit Profile</a>
+                        </li>
+                        <% } else { %>
+                        <li class="nav-item active">
+                          <a class="nav-link" id="link3" href="/signin" >Sign In</a>
+                        </li>
+                        <li class="nav-item active">
+                          <a class="nav-link" id="link4" href="/signup">Sign Up</a>
+                        </li>
+                        <% } %>
+                      </ul>
+                    </div>
+                  </nav>
+                  <br><br><br><br><br>
+                  
+                  
+                  <% if(results.length==0){ %>
+                    <h1>No Results found</h1>
+                  <% } %>
+                    <div class="container">
+                        <div class="card-deck">
+
+                          
+                            <% results.forEach(function (result){ %>
+                          <div class="card">
+                            <img class="card-img-top" src="https://picsum.photos/309/200?image=1050" alt="Card image cap">
+                            <div class="card-body">
+                              <h5 class="card-title"style="text-align:center;"><%=result.pgname%></h5>
+                              <h5 class="card-text"><small>Phone No: <%=result.pgphoneno%></small></h5>
+                              <p class="card-text" style="font-size:20px;"> <small>Address: <%=result.doorno%>, <%=result.saddress%>, <%=result.city%>, <%=result.state%>, <%=result.zipcode%>.</small></p>
+                              <p class="card-text" style="font-size: 20px;"><small>Room Type: <%=result.roomtype %></small></p>
+                              <p class="card-text" style="font-size: 20px;"><small>Room For: <%=result.roomfor %></small></p>
+                              <p class="card-text" style="font-size: 20px;"><small>Rent: <%=result.rent %></small></p>
+                              <p class="card-text" style="font-size: 20px;"><small>Deposit: <%=result.deposit %></small></p>
+                              <p class="card-text" style="font-size: 20px;"><small>Amenities: 
+                                <% result.amenities.forEach(function(amenitie){ %>
+                                  <%=amenitie %>,
+                                <% }) %>
+                              </small></p>
+                              <button type="button" class="btn btn-light-blue btn-md" style="text-align:center;" onclick="myfunc()">Book Now</button>
+                            </div>
+                          </div>
+                          <% }) %>
+                        </div>
+                    </div>
+    </body>
+    <script>
+    function myfunc(){
+     <% if(user){ %>
+      alert("Check Your Mail..You Will Be Soon Contacted by Pg Owner");
+     <% }else{ %>
+      alert("Please Sign-In First");
+    <% } %>
+     }
+    </script>
+</html>
